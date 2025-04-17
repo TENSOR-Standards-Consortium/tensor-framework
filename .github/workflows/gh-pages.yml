@@ -1,0 +1,55 @@
+# .github/workflows/gh-pages.yml
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare public folder
+        run: |
+          rm -rf public
+          mkdir public
+
+          # Copy your documentation (Markdown → HTML already in docs/)
+          cp -R docs/* public/
+
+          # If you have a separate 'visualizer/' directory with your HTML/JS viewer,
+          # copy it into public as well:
+          if [ -d visualizer ]; then
+            mkdir -p public/visualizer
+            cp -R visualizer/* public/visualizer/
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Point at the prepared site output
+          path: public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
