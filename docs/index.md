@@ -3,76 +3,84 @@ layout: default
 title: Home
 ---
 
-<div class="hero">
-  <h1>Why TENSOR?</h1>
-  <p>
-    Modern SOC teams drown in alerts and inconsistent processes. 
-    TENSOR (Threat Exploration & Non‑linear Security Orchestration & Response)
-    brings you:
-  </p>
-  <ul style="list-style: none; padding: 0; margin-top: 1.5rem;">
-    <li>✔️ **Unified Investigations**: One core JSON graph—everyone follows the same steps.</li>
-    <li>✔️ **Versioned & Auditable**: Lock your playbooks to vX.Y.Z so investigations are reproducible.</li>
-    <li>✔️ **Plug‑and‑Play**: Attach remediation modules, automated playbooks, or AI‑agents.</li>
-    <li>✔️ **Tool‑Agnostic**: Render it in any SIEM, SOAR or custom dashboard.</li>
-  </ul>
-</div>
-
-## Dive Deeper
-
-<div class="features">
-
-  <div class="feature-card">
-    <h3>Core Graph</h3>
-    <p>
-      75+ SOC questions spanning File, Email, Host, Network, Identity, Cloud & App.
-      Define decision‑trees once; execute anywhere.
-    </p>
+<!-- Why TENSOR? as a separate section -->
+<section class="section dark">
+  <div class="container three-col">
+    <div>
+      <h2>What Is TENSOR?</h2>
+      <p>
+        A JSON‑first, tool‑agnostic standard detailing 75+ SOC investigative
+        questions across File, Email, Host, Network, Identity, Cloud & Application.
+      </p>
+    </div>
+    <div>
+      <h2>Why TENSOR?</h2>
+      <ul>
+        <li>✅ <strong>Consistent Investigations</strong>—every analyst follows the same flow.</li>
+        <li>✅ <strong>Semantic Versioning</strong>—lock to vX.Y.Z for audits and training.</li>
+        <li>✅ <strong>Extensible Modules</strong>—attach playbooks, SOAR apps, or AI agents.</li>
+        <li>✅ <strong>Tool‑Agnostic</strong>—works with any SIEM or custom dashboard.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>How To Get Started</h2>
+      <ol>
+        <li>
+          <strong>Download graph:</strong>
+          <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">tensor-core.json</a>
+        </li>
+        <li>
+          <strong>Validate schema:</strong>
+          <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">tensor-schema.json</a>
+        </li>
+        <li>
+          <strong>Explore visually:</strong>
+          <a href="{{ '/visualizer/' | relative_url }}">Launch Visualizer</a>
+        </li>
+        <li>
+          <strong>Contribute:</strong> propose questions or modules on GitHub.
+        </li>
+      </ol>
+    </div>
   </div>
+</section>
 
-  <div class="feature-card">
-    <h3>Graph JSON</h3>
-    <p>
-      Download any release:
-      [Latest →]({{ '/core/latest/tensor-core.json' | relative_url }})
-    </p>
-    <p>
-      Or pick a version from the dropdown above.
-    </p>
+<!-- Dive Deeper with icon cards -->
+<section class="section light">
+  <div class="container features">
+    <div class="card">
+      <img src="{{ '/assets/icons/graph.svg'   | relative_url }}" class="card-icon" alt="">
+      <h3>Core Investigative Graph</h3>
+      <p>Detailed decision‑trees for every suspicious event, in an open JSON format.</p>
+    </div>
+    <div class="card">
+      <img src="{{ '/assets/icons/version.svg' | relative_url }}" class="card-icon" alt="">
+      <h3>Version Control</h3>
+      <p>Lock your investigations to vX.Y.Z for reproducibility and compliance.</p>
+    </div>
+    <div class="card">
+      <img src="{{ '/assets/icons/plug.svg'    | relative_url }}" class="card-icon" alt="">
+      <h3>Extensible Modules</h3>
+      <p>Attach remediation playbooks or automated actions without touching core.</p>
+    </div>
+    <div class="card">
+      <img src="{{ '/assets/icons/ai.svg'      | relative_url }}" class="card-icon" alt="">
+      <h3>AI & Automation</h3>
+      <p>Power AI‑agent workflows with the exact same graph you use manually.</p>
+    </div>
   </div>
+</section>
 
-  <div class="feature-card">
-    <h3>Schema</h3>
+<!-- Get Involved call to action -->
+<section class="section dark get-involved">
+  <div class="container">
+    <h2>Join the TENSOR Standards Consortium</h2>
     <p>
-      Strict JSON Schema ensures every release is valid:
-      [View →]({{ '/schemas/tensor-schema.json' | relative_url }})
+      Help us evolve the core investigative graph, build remediation modules,
+      or integrate TENSOR into your tools.
     </p>
+    <a class="button" href="https://github.com/tensor-standards-consortium/tensor-framework">
+      View on GitHub
+    </a>
   </div>
-
-  <div class="feature-card">
-    <h3>Visualizer</h3>
-    <p>
-      Browser‑based Cytoscape.js app—filter by category, weight, export
-      snapshots, and train your team interactively.
-    </p>
-    <p>
-      [Launch →]({{ '/visualizer/' | relative_url }})
-    </p>
-  </div>
-
-</div>
-
-<div class="cta">
-  <a href="{{ '/visualizer/' | relative_url }}">🚀 Try the Visualizer</a>
-</div>
-
----
-
-## Get Involved
-
-1. **Clone** the repo  
-2. **Propose** new questions under `/core/vX.Y.Z/`  
-3. **Build** your own modules under `/modules/`  
-4. **Join** the TENSOR Standards Consortium on GitHub  
-
-Let’s build consistent, reproducible SOC investigations—together. 🚀
+</section>
