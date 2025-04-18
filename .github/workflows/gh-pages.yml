@@ -36,10 +36,11 @@ jobs:
         run: |
           rm -rf docs/core docs/visualizer docs/assets/images docs/_data docs/schemas
           mkdir -p docs/core docs/visualizer docs/assets/images docs/_data docs/schemas
-          cp -R core/*               docs/core/
-          cp core/manifest.json      docs/_data/manifest.json
-          cp schemas/tensor-schema.json docs/schemas/tensor-schema.json
-          cp -R visualizer/*         docs/visualizer/
+
+          cp -R core/*                    docs/core/
+          cp core/manifest.json           docs/_data/manifest.json
+          cp schemas/tensor-schema.json   docs/schemas/tensor-schema.json
+          cp -R visualizer/*              docs/visualizer/
           cp assets/images/logo-framework.png  docs/assets/images/
           cp assets/images/logo-consortium.png docs/assets/images/
 
@@ -49,12 +50,13 @@ jobs:
       - name: Promote core versions & create “latest” symlink
         run: |
           mkdir -p public/core
-          # copy manifest from docs/_data (Jekyll doesn't emit _data into public)
+          # Copy manifest.json into public/core
           cp docs/_data/manifest.json public/core/manifest.json
+          # Read latest version from that manifest
           latest=$(jq -r .latest public/core/manifest.json)
-          mkdir -p public/core/${latest}
-          cp public/core/${latest}/tensor-core.json public/core/${latest}/
-          cd public/core && ln -sfn ${latest} latest
+          # Create (or update) the 'latest' symlink
+          cd public/core
+          ln -sfn ${latest} latest
 
       - name: Deploy to GitHub Pages
         uses: actions/configure-pages@v5
