@@ -3,5 +3,8 @@ description: Official docs & interactive visualizer for the TENSOR standard
 theme: minima
 plugins:
   - jekyll-feed
+
+# Include the core JSON and visualizer folders as static files
 include:
-  - _includes
+  - core
+  - visualizer

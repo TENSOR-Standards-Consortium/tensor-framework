@@ -1,12 +1,17 @@
 <form>
-  <label>Graph version:
+  <label>
+    Graph version:
     <select onchange="window.location.href = this.value;">
-      {% capture manifest_file %}{% for f in site.static_files if f.path == 'core/manifest.json' %}{{ f.path }}{% endfor %}{% endcapture %}
-      {% assign manifest = site.static_files | where:"path",manifest_file | first | read_file | parse_json %}
+      {% assign manifest = site.static_files 
+           | where: "path", "core/manifest.json" 
+           | first 
+           | read_file 
+           | parse_json %}
       {% for v in manifest.versions %}
-        <option value="/core/{{ v }}/tensor-core.json"
+        <option 
+          value="{{ '/core/' | append: v | append: '/tensor-core.json' | relative_url }}"
           {% if v == manifest.latest %}selected{% endif %}>
-          v{{ v }}
+          {{ v }}
         </option>
       {% endfor %}
     </select>

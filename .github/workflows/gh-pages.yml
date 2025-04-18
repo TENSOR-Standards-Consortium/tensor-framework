@@ -15,9 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Install jq
+      - name: Install jq (for manifest)
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
@@ -27,28 +28,31 @@ jobs:
         with:
           ruby-version: '3.1.4'
 
-      - name: Install Jekyll & Plugins
+      - name: Install Jekyll & plugins
         run: gem install jekyll minima jekyll-feed
+
+      - name: Copy core & visualizer into docs
+        run: |
+          rm -rf docs/core docs/visualizer
+          cp -R core docs/core
+          cp -R visualizer docs/visualizer
 
       - name: Build Jekyll site
         run: jekyll build --source docs --destination public
 
-      - name: Copy Visualizer
-        run: cp -R visualizer public/visualizer
-
-      - name: Copy core JSON versions & create “latest” symlink
+      - name: Promote core versions & symlink “latest”
         run: |
           mkdir -p public/core
-          cp core/manifest.json public/core/
-          latest=$(jq -r .latest core/manifest.json)
+          cp docs/core/manifest.json public/core/
+          latest=$(jq -r .latest docs/core/manifest.json)
           mkdir -p public/core/${latest}
-          cp core/${latest}/tensor-core.json public/core/${latest}/
+          cp docs/core/${latest}/tensor-core.json public/core/${latest}/
           cd public/core && ln -sfn ${latest} latest
 
       - name: Deploy to GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload site artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
