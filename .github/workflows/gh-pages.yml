@@ -32,7 +32,7 @@ jobs:
         run: gem install jekyll minima jekyll-feed
 
       - name: Build Jekyll site
-        run: jekyll build docs --destination public
+        run: jekyll build --source docs --destination public
 
       - name: Copy core JSON versions & create “latest” symlink
         run: |
