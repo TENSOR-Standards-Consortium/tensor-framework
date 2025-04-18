@@ -7,22 +7,27 @@
 </head>
 <body>
 
-  <!-- Consortium full‑width banner -->
-  <div class="banner">
-    <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
-         alt="TENSOR Standards Consortium Banner" />
-  </div>
-
-  <!-- Dark header bar with framework logo + nav -->
+  <!-- Dark header/nav -->
   <header class="dark-header">
+    <!-- Consortium logo on left -->
+    <a href="{{ '/' | relative_url }}" class="logo-link">
+      <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
+           alt="TENSOR Standards Consortium" class="consortium-logo" />
+    </a>
+
+    <!-- Framework logo -->
     <img src="{{ '/assets/images/logo-framework.png' | relative_url }}"
          alt="TENSOR Framework Logo" class="framework-logo" />
+
+    <!-- Navigation links -->
     <nav>
       <a href="{{ '/'                      | relative_url }}">Home</a>
       <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Graph JSON</a>
       <a href="{{ '/schemas/tensor-schema.json'   | relative_url }}">Schema</a>
       <a href="{{ '/visualizer/'           | relative_url }}">Visualizer</a>
     </nav>
+
+    <!-- Version dropdown -->
     <div class="version-selector">
       {% include version_selector.html %}
     </div>
