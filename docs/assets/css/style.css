@@ -1,52 +1,134 @@
-/* Dark header/nav */
-.dark-header {
-    background: #111;                /* darker than before */
-    color: #e5e7eb;
+/* Google Fonts */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    background: #f9fafb;
+    margin: 0;
+    line-height: 1.6;
+  }
+  
+  /* Utility */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* Sticky Navbar */
+  .navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(17,17,17,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+  }
+  .nav-inner {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    padding: 0.5rem 2rem;
-    gap: 1rem;
+    padding: 0.75rem 0;
   }
-  
-  /* Consortium logo */
-  .logo-link {
-    display: block;
-    margin-right: 1rem;
+  .nav-logo { height: 40px; }
+  .nav-links {
+    margin-left: 2rem;
+    display: flex;
+    gap: 1.5rem;
   }
-  .consortium-logo {
-    height: 50px;                    /* smaller for header */
-  }
-  
-  /* Framework logo */
-  .framework-logo {
-    height: 60px;
-    margin-right: 2rem;
-  }
-  
-  /* Nav styling (unchanged colors, but adjust spacing) */
-  .dark-header nav {
-    flex-grow: 1;
-  }
-  .dark-header nav a {
-    color: #e5e7eb;
+  .nav-links a {
+    color: #fafafa;
     text-decoration: none;
-    margin-right: 1rem;
     font-weight: 500;
+    transition: color .2s;
   }
-  .dark-header nav a:hover {
+  .nav-links a:hover { color: #1fb6ff; }
+  .nav-cta { margin-left: auto; }
+  
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1fb6ff 0%, #009eeb 100%);
+    color: white;
+    padding: 6rem 0 4rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .hero-sub {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+  }
+  .button.primary {
+    background: #fff;
+    color: #009eeb;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background .2s, color .2s;
+  }
+  .button.primary:hover {
+    background: #009eeb;
     color: #fff;
-    text-decoration: underline;
   }
   
-  /* Version selector stays but colors adapted */
-  .version-selector select {
-    background: #222;
-    color: #e5e7eb;
-    border: 1px solid #444;
-    padding: 0.25rem;
+  /* Three‑column intro */
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 2rem;
+    margin: 4rem 0;
   }
-  .version-selector small {
+  .three-col h2 { font-size: 1.5rem; margin-bottom: .5rem; }
+  .three-col ul, .three-col ol {
+    margin-left: 1rem;
+    color: #555;
+  }
+  
+  /* Feature Cards */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .card-icon {
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Footer */
+  .footer {
+    background: #111;
     color: #aaa;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+  }
+  .footer-links {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .footer-links a {
+    color: #888;
+    text-decoration: none;
+    margin: 0 .5rem;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: #fff; }
+  .footer p {
+    text-align: center;
+    margin: 0;
   }
   

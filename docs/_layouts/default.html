@@ -1,44 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{{ page.title }} — {{ site.title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
 
-  <!-- Dark header/nav -->
-  <header class="dark-header">
-    <!-- Consortium logo on left -->
-    <a href="{{ '/' | relative_url }}" class="logo-link">
-      <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
-           alt="TENSOR Standards Consortium" class="consortium-logo" />
-    </a>
-
-    <!-- Framework logo -->
-    <img src="{{ '/assets/images/logo-framework.png' | relative_url }}"
-         alt="TENSOR Framework Logo" class="framework-logo" />
-
-    <!-- Navigation links -->
-    <nav>
-      <a href="{{ '/'                      | relative_url }}">Home</a>
-      <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Graph JSON</a>
-      <a href="{{ '/schemas/tensor-schema.json'   | relative_url }}">Schema</a>
-      <a href="{{ '/visualizer/'           | relative_url }}">Visualizer</a>
-    </nav>
-
-    <!-- Version dropdown -->
-    <div class="version-selector">
-      {% include version_selector.html %}
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="{{ '/' | relative_url }}">
+        <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
+             alt="TENSOR Consortium" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Graph JSON</a>
+        <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">Schema</a>
+        <a href="{{ '/visualizer/' | relative_url }}">Visualizer</a>
+      </nav>
+      <div class="nav-cta">
+        {% include version_selector.html %}
+      </div>
     </div>
   </header>
 
-  <main>
-    {{ content }}
-  </main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Unlock Consistent, Reproducible SOC Investigations</h1>
+      <p class="hero-sub">
+        The TENSOR framework standardizes your Security Operations Center workflows
+        into a single, versioned JSON graph—ready for human analysts and AI‑driven agents alike.
+      </p>
+      <a class="button primary" href="{{ '/visualizer/' | relative_url }}">Launch Visualizer →</a>
+    </div>
+  </section>
 
-  <footer>
-    <p>&copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium</p>
+  <!-- What • Why • How -->
+  <section class="three-col container">
+    <div class="col">
+      <h2>What Is TENSOR?</h2>
+      <p>A lightweight, open JSON schema defining 75+ investigative questions across
+         File, Email, Host, Network, Identity, Cloud & Application domains.</p>
+    </div>
+    <div class="col">
+      <h2>Why Use It?</h2>
+      <ul>
+        <li>✅ Uniform investigations every time</li>
+        <li>✅ Semantic versioning & audit trails</li>
+        <li>✅ Plug‑and‑play remediation modules</li>
+        <li>✅ Tool‑agnostic integrations</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h2>How To Get Started</h2>
+      <ol>
+        <li>Download the latest graph:<br />
+          <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">tensor-core.json</a></li>
+        <li>Validate against schema:<br />
+          <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">tensor-schema.json</a></li>
+        <li>Explore visually:<br />
+          <a href="{{ '/visualizer/' | relative_url }}">Open Visualizer</a></li>
+        <li>Contribute via GitHub: propose new versions or modules.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Feature Cards -->
+  <section class="features container">
+    <div class="card">
+      <img src="{{ '/assets/icons/graph.svg' | relative_url }}" alt="" class="card-icon" />
+      <h3>Core Investigative Graph</h3>
+      <p>Detail‑driven decision‑tree for every suspicious event, in JSON.</p>
+    </div>
+    <div class="card">
+      <img src="{{ '/assets/icons/version.svg' | relative_url }}" alt="" class="card-icon" />
+      <h3>Version Control</h3>
+      <p>Lock your investigations to vX.Y.Z for reproducibility and compliance.</p>
+    </div>
+    <div class="card">
+      <img src="{{ '/assets/icons/plug.svg' | relative_url }}" alt="" class="card-icon" />
+      <h3>Extensible Modules</h3>
+      <p>Attach remediation playbooks or SOAR integrations without touching core.</p>
+    </div>
+    <div class="card">
+      <img src="{{ '/assets/icons/ai.svg' | relative_url }}" alt="" class="card-icon" />
+      <h3>AI & Automation</h3>
+      <p>Feed your AI agents the same graph—accelerate both manual & automated response.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="{{ '/' | relative_url }}">Home</a> |
+        <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Graph JSON</a> |
+        <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">Schema</a> |
+        <a href="{{ '/visualizer/' | relative_url }}">Visualizer</a>
+      </div>
+      <p>&copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium — <a href="https://github.com/tensor-standards-consortium/tensor-framework" target="_blank">GitHub</a></p>
+    </div>
   </footer>
+
 </body>
 </html>
