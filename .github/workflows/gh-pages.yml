@@ -1,3 +1,4 @@
+# .github/workflows/gh-pages.yml
 name: Deploy TENSOR Framework Site
 
 on:
@@ -18,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install jq (for manifest)
+      - name: Install prerequisites
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
@@ -28,31 +29,42 @@ jobs:
         with:
           ruby-version: '3.1.4'
 
-      - name: Install Jekyll & plugins
+      - name: Install Jekyll & theme
         run: gem install jekyll minima jekyll-feed
 
-      - name: Copy core & visualizer into docs
+      - name: Prepare docs source
         run: |
-          rm -rf docs/core docs/visualizer
+          # Clean out any old copies
+          rm -rf docs/core docs/visualizer docs/assets/images
+
+          # Copy versioned core JSONs & manifest
           cp -R core docs/core
+          cp core/manifest.json docs/_data/manifest.json
+
+          # Copy visualizer app
           cp -R visualizer docs/visualizer
+
+          # Copy your logos into the docs assets/images
+          mkdir -p docs/assets/images
+          cp assets/images/logo-framework.png docs/assets/images/
+          cp assets/images/logo-consortium.png docs/assets/images/
 
       - name: Build Jekyll site
         run: jekyll build --source docs --destination public
 
-      - name: Promote core versions & symlink “latest”
+      - name: Promote core versions & create “latest” symlink
         run: |
           mkdir -p public/core
-          cp docs/core/manifest.json public/core/
-          latest=$(jq -r .latest docs/core/manifest.json)
+          cp public/_data/manifest.json public/core/manifest.json
+          latest=$(jq -r .latest public/core/manifest.json)
           mkdir -p public/core/${latest}
-          cp docs/core/${latest}/tensor-core.json public/core/${latest}/
+          cp public/core/${latest}/tensor-core.json public/core/${latest}/
           cd public/core && ln -sfn ${latest} latest
 
       - name: Deploy to GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Pages artifact
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
