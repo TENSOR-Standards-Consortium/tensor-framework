@@ -6,14 +6,23 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
+
+  <!-- Consortium banner -->
+  <div class="banner">
+    <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
+         alt="TENSOR Standards Consortium" />
+  </div>
+
+  <!-- Main header with framework logo -->
   <header>
     <img src="{{ '/assets/images/logo-framework.png' | relative_url }}"
-         alt="TENSOR Logo" height="50">
+         alt="TENSOR Framework" class="framework-logo" />
     <h1>{{ site.title }}</h1>
     <nav>
-      <a href="{{ '/'                      | relative_url }}">Home</a> |
+      <a href="{{ '/'                       | relative_url }}">Home</a> |
       <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Latest Graph JSON</a> |
-      <a href="{{ '/visualizer/'           | relative_url }}">Visualizer</a>
+      <a href="{{ '/schemas/tensor-schema.json'   | relative_url }}">Schema</a> |
+      <a href="{{ '/visualizer/'            | relative_url }}">Visualizer</a>
     </nav>
     <div class="version-selector">
       {% include version_selector.html %}
@@ -25,7 +34,7 @@
   </main>
 
   <footer>
-    <p>&copy; TENSOR Standards Consortium</p>
+    <p>&copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium</p>
   </footer>
 </body>
 </html>

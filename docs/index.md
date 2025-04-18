@@ -6,12 +6,38 @@ title: Home
 <div class="hero">
   <h1>Welcome to the TENSOR Framework</h1>
   <p>
-    Threat Exploration & Non‑linear Security Orchestration & Response (TENSOR) 
-    is an open, versioned standard for SOC investigative workflows. 
-    Define your core decision‑tree once, plug in custom modules for remediation, 
-    and power both human analysts and agentic AI.
+    Threat Exploration & Non‑linear Security Orchestration & Response (TENSOR)
+    is an open, versioned standard for Security Operations Center (SOC)
+    investigative workflows.
   </p>
 </div>
+
+## Why TENSOR?
+
+Modern SOC teams face alert fatigue, siloed tooling, and inconsistent
+investigations. TENSOR provides:
+
+- **Consistency & Transparency**  
+  A single decision‑graph JSON everybody uses, so investigations follow the
+  same steps every time.
+
+- **Version Control & Reproducibility**  
+  Semantic versions (e.g. v0.1.0, v1.0.0) let you lock in a point‑in‑time
+  investigation for audits or training.
+
+- **Extensibility**  
+  Keep your core investigation clean, then bolt on remediation playbooks,
+  ticketing workflows, or AI‑agent modules via separate JSON modules.
+
+- **Tool‑Agnostic**  
+  Works with any SIEM, SOAR, or custom dashboard—just fetch the JSON and
+  render or execute your workflow.
+
+<div class="cta">
+  <a href="{{ '/visualizer/' | relative_url }}">🚀 Launch Interactive Visualizer</a>
+</div>
+
+---
 
 ## Key Features
 
@@ -20,59 +46,48 @@ title: Home
   <div class="feature-card">
     <h3>Core Investigative Graph</h3>
     <p>
-      A lightweight, JSON‑based decision‑flow of 70+ SOC questions 
-      covering File, Email, Host, Network, User/Identity, Cloud & Application.
+      70+ curated SOC questions across File, Email, Host, Network,
+      User/Identity, Cloud & Application categories.
     </p>
   </div>
 
   <div class="feature-card">
-    <h3>Semantic Versioning</h3>
+    <h3>Dynamic Version Selector</h3>
     <p>
-      Every release gets its own folder (e.g. v0.1.0). 
-      Fetch `/core/latest/tensor-core.json` for the current graph  
-      or lock to a specific version for reproducible investigations.
+      Switch between releases in your browser. Use the dropdown above
+      to download a specific graph version or load it into the visualizer.
     </p>
   </div>
 
   <div class="feature-card">
-    <h3>Interactive Visualizer</h3>
+    <h3>Schema‑Driven</h3>
     <p>
-      Built on Cytoscape.js—browse, filter, and explore nodes & edges 
-      directly in your browser. Perfect for demos and analyst training.
+      JSON Schema (`/schemas/tensor-schema.json`) ensures every graph
+      release adheres to the same structure.
     </p>
   </div>
 
   <div class="feature-card">
-    <h3>Extension Modules</h3>
+    <h3>Interactive Visualization</h3>
     <p>
-      Keep the core investigation clean, then attach remediation 
-      playbooks, business processes, or custom SOAR integrations 
-      via separate module JSONs.
+      Cytoscape.js powers a rich browser UI—filter by category, weight,
+      hover for details, and export your custom graph.
     </p>
   </div>
 
-</div>
-
-<div class="cta">
-  <a href="{{ '/visualizer/' | relative_url }}">🚀 Launch Visualizer</a>
 </div>
 
 ---
 
 ## Getting Started
 
-1. **Download** the latest graph JSON:  
+1. **Download** the latest graph:  
    [tensor-core.json →]({{ '/core/latest/tensor-core.json' | relative_url }})
-2. **Read** the schema for structure:  
+2. **Validate** against the schema:  
    [tensor-schema.json →]({{ '/schemas/tensor-schema.json' | relative_url }})
 3. **Explore** with the visualizer:  
-   [Open Visualizer →]({{ '/visualizer/' | relative_url }})
+   [Launch →]({{ '/visualizer/' | relative_url }})
 4. **Contribute** on GitHub:  
-   - Propose new questions to `/core/vX.Y.Z/`  
-   - Add remediation modules under `/modules/`
+   - Add or revise questions under `/core/vX.Y.Z/`  
+   - Create remediation or process modules under `/modules/`
 
----
-
-<footer>
-<p>© {{ 'now' | date: "%Y" }} TENSOR Standards Consortium — Building the future of SOC investigations.</p>
-</footer>

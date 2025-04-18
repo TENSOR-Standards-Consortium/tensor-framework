@@ -4,11 +4,12 @@ theme: minima
 plugins:
   - jekyll-feed
 
-# Include the core JSON and visualizer folders as static files
+# GitHub Pages settings
+baseurl: "/tensor-standards-consortium"
+url:    "https://tensor-standards-consortium.github.io"
+
+# Include these so Jekyll will bundle them
 include:
   - core
   - visualizer
-
-# Tell Jekyll “my site lives at /<repo-name>”
-baseurl: "/tensor-framework"
-url:    "https://tensor-standards-consortium.github.io"
+  - schemas
