@@ -1,0 +1,147 @@
+/* style.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    height: 100%;
+    overflow: hidden;
+  }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    flex-wrap: wrap;
+  }
+  .toolbar button,
+  .toolbar select,
+  .toolbar input[type="range"],
+  .toolbar input[type="text"] {
+    margin: 2px;
+    padding: 5px 8px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .toolbar input[type="text"] {
+    margin-left: auto;
+    width: 150px;
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  #main {
+    position: absolute;
+    top: 84px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+  }
+  #cy {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+  }
+  .flyout {
+    position: absolute;
+    top: 84px;
+    bottom: 0;
+    right: -300px;
+    width: 300px;
+    background: #f9f9f9;
+    border-left: 1px solid #ccc;
+    overflow: auto;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    color: #000;
+  }
+  .flyout.open {
+    right: 0;
+  }
+  .flyout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #e0e0e0;
+    color: inherit;
+  }
+  .flyout-tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+  .flyout-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+  }
+  .flyout-tab.active {
+    background: #fff;
+    border-top: 2px solid #007bff;
+  }
+  .flyout-content > div {
+    display: none;
+    padding: 10px;
+  }
+  .flyout-content > div.active {
+    display: block;
+  }
+  .isolatedHighlight {
+    border-color: red;
+    border-width: 4px;
+    border-style: solid;
+  }
+  .searchMatch {
+    border-color: yellow;
+    border-width: 4px;
+    border-style: solid;
+  }
+  body.dark {
+    background: #2b2b2b;
+    color: #ddd;
+  }
+  body.dark .toolbar {
+    background: #444;
+    color: #eee;
+  }
+  body.dark .flyout {
+    background: #333;
+    color: #ddd;
+  }
+  body.dark .flyout-header {
+    background: #555;
+    color: #ddd;
+  }
+  .flyout-content ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .flyout-content li {
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  .flyout-content li:hover {
+    text-decoration: underline;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    display: inline-block;
+    border: 1px solid #999;
+  }  

@@ -1,0 +1,7 @@
+title: TENSOR Framework Documentation
+description: Official docs for the TENSOR Framework
+theme: minima
+plugins:
+  - jekyll-feed
+include:
+  - _includes

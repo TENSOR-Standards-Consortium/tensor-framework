@@ -1,0 +1,18 @@
+<form>
+    <label>
+      Version:
+      <select onchange="location = this.value;">
+        {% for ver in site.static_files
+           | where_exp: "f", "f.path == 'core/manifest.json'" %}
+          {% assign manifest = ver | read_file | parse_json %}
+        {% endfor %}
+        {% for v in manifest.versions %}
+          <option value="/core/{{ v }}/tensor-core.json"
+            {% if v == manifest.latest %}selected{% endif %}>
+            {{ v }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+  </form>
+  

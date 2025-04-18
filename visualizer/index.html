@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TENSOR Framework Investigative Graph Visualization Tool</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/cytoscape-context-menus@4.2.1/cytoscape-context-menus.css" />
+</head>
+<body>
+  <div class="toolbar">
+    <button id="loadBtn" title="Load JSON"><i class="fas fa-folder-open"></i></button>
+    <input type="file" id="fileInput" accept=".json" style="display:none" aria-label="Load JSON file" />
+    <button id="saveBtn" title="Save JSON"><i class="fas fa-save"></i></button>
+    <button id="exportBtn" title="Export"><i class="fas fa-file-export"></i></button>
+    <div id="exportMenu" aria-hidden="true">
+      <button id="exportPNG">PNG</button>
+      <button id="exportSVG">SVG</button>
+      <button id="exportPDF">PDF</button>
+    </div>
+    <select id="layoutSelect" title="Layout">
+      <option value="cose">CoSE</option>
+      <option value="concentric">Concentric</option>
+      <option value="cola">Cola</option>
+      <option value="grid">Grid</option>
+      <option value="circle">Circle</option>
+      <option value="random">Random</option>
+    </select>
+    <button id="highlightIsolatedBtn" title="Highlight Isolated Nodes"><i class="fas fa-ring"></i></button>
+    <!-- <button id="undoBtn" title="Undo" disabled><i class="fas fa-undo"></i></button> -->
+    <!-- <button id="redoBtn" title="Redo" disabled><i class="fas fa-redo"></i></button> -->
+    <button id="openFlyoutBtn" title="Open Details Panel"><i class="fas fa-info-circle"></i></button>
+    <label for="searchBox" class="visually-hidden">Search graph</label>
+    <input type="text" id="searchBox" placeholder="Search..." title="Search" aria-label="Search graph" />
+    <button id="modeToggle" title="Dark/Light Mode"><i class="fas fa-moon"></i></button>
+  </div>
+  <div class="toolbar" id="filterBar">
+    <span id="legend"></span>
+    Weight ≥ <span id="weightVal">1</span>
+    <input type="range" id="weightSlider" min="1" max="5" value="1" aria-label="Filter by weight" />
+  </div>
+  <div id="main">
+    <div id="cy"></div>
+    <div id="flyout" class="flyout" aria-hidden="true">
+      <div class="flyout-header">
+        <span id="flyoutTitle">Details</span>
+        <button id="closeFlyoutBtn" aria-label="Close details panel"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="flyout-tabs">
+        <div class="flyout-tab active" data-tab="detailsTab">Details</div>
+        <div class="flyout-tab" data-tab="statsTab">Stats</div>
+      </div>
+      <div class="flyout-content">
+        <div id="detailsTab" class="active"><p>Select a node or edge to see details.</p></div>
+        <div id="statsTab"></div>
+      </div>
+    </div>
+  </div>
+  <!-- JS libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.31.2/cytoscape.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/webcola@3.3.0/WebCola/cola.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-cola@2.5.1/cytoscape-cola.js"></script>
+  <script src="https://unpkg.com/cytoscape-context-menus@4.2.1/cytoscape-context-menus.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-edgehandles@4.0.1/cytoscape-edgehandles.js"></script>
+  <script src="https://unpkg.com/cytoscape-undo-redo@1.3.3/cytoscape-undo-redo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"></script>
+  <script>
+    let cy, ur, eh;
+    const categoryColors = {}, allowedCategories = {}, colorPalette = ['#1f77b4','#ff7f0e','#2ca02c','#d62728','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf'];
+    let nextColorIndex=0, nextNodeId=0, nextEdgeId=0, minWeightFilter=1;
+
+    function pickTextColor(bg) {
+      const r=parseInt(bg.slice(1,3),16), g=parseInt(bg.slice(3,5),16), b=parseInt(bg.slice(5,7),16);
+      return (0.299*r+0.587*g+0.114*b)>127?'#000':'#fff';
+    }
+    function assignCategory(cat){ if(!(cat in categoryColors)){ categoryColors[cat]=colorPalette[nextColorIndex%colorPalette.length]; allowedCategories[cat]=true; nextColorIndex++; }}
+    function initializeCy(data){ if(cy) cy.destroy(); nextColorIndex=nextNodeId=nextEdgeId=0; Object.keys(categoryColors).forEach(k=>delete categoryColors[k]); Object.keys(allowedCategories).forEach(k=>delete allowedCategories[k]);
+      const elements=[]; const nodeCat={}; data.nodes.forEach(n=>{ const d=n.data||n; if(!d.id)d.id='n'+(++nextNodeId); assignCategory(d.category); nodeCat[d.id]=d.category; elements.push({group:'nodes',data:Object.assign({},d,{label:d.label||d.id,color:categoryColors[d.category],textColor:pickTextColor(categoryColors[d.category])})}); });
+      data.edges.forEach(e=>{ const d=e.data||e; if(!d.source||!d.target)return; assignCategory(nodeCat[d.source]); assignCategory(nodeCat[d.target]); elements.push({group:'edges',data:Object.assign({},d,{sourceColor:categoryColors[nodeCat[d.source]],targetColor:categoryColors[nodeCat[d.target]]})}); });
+      cy=cytoscape({ container:document.getElementById('cy'), elements, layout:{name:'cose',padding:50}, style:[
+        {selector:'node',style:{'background-color':'data(color)','color':'data(textColor)','label':'data(label)','width':'mapData(weight,1,5,30,70)','height':'mapData(weight,1,5,30,70)','text-valign':'center','text-halign':'center'}},
+        {selector:'edge',style:{'curve-style':'bezier','target-arrow-shape':'triangle','label':'data(label)','line-fill':'linear-gradient'}},
+        {selector:'.isolatedHighlight',style:{'border-color':'red','border-width':'4px','border-style':'solid'}},
+        {selector:'.searchMatch',style:{'border-color':'yellow','border-width':'4px','border-style':'solid'}}
+      ]});
+      cy.edges().forEach(e=>{ e.style('line-gradient-stop-colors',e.data('sourceColor')+' '+e.data('targetColor')); e.style('line-gradient-stop-positions','0% 100%'); });
+      ur=cy.undoRedo({}); eh=cy.edgehandles({}); cy.on('tap','node, edge',evt=>showDetails(evt.target)); renderLegend(); applyFilters(); updateStats(); updateUndoRedoButtons(); bindSearch();
+    }
+    function renderLegend(){ const lg=document.getElementById('legend'); lg.innerHTML=''; Object.keys(categoryColors).forEach(cat=>{ const item=document.createElement('span'); item.className='legend-item'; const swatch=document.createElement('span'); swatch.className='legend-swatch'; swatch.style.backgroundColor=categoryColors[cat]; const chk=document.createElement('input'); chk.type='checkbox'; chk.checked=allowedCategories[cat]; chk.onchange=()=>{allowedCategories[cat]=chk.checked;applyFilters();}; const lbl=document.createElement('span'); lbl.textContent=cat; item.append(swatch,chk,lbl); lg.append(item); }); }
+    function applyFilters(){ cy.batch(()=>{ cy.nodes().forEach(n=>{ const c=n.data('category'),w=n.data('weight'); (allowedCategories[c]&&w>=minWeightFilter)?n.show():n.hide(); }); cy.edges().forEach(e=>{ (e.source().visible()&&e.target().visible())?e.show():e.hide(); }); }); updateStats(); }
+    function updateStats(){ document.getElementById('statsTab').innerHTML=`Visible Nodes: ${cy.nodes(':visible').length}/${cy.nodes().length}<br>Visible Edges: ${cy.edges(':visible').length}/${cy.edges().length}`; }
+    function updateUndoRedoButtons(){ document.getElementById('undoBtn').disabled=ur.isUndoStackEmpty(); document.getElementById('redoBtn').disabled=ur.isRedoStackEmpty(); }
+    function bindSearch(){ const sb=document.getElementById('searchBox'); sb.oninput=()=>{ cy.nodes().removeClass('searchMatch'); const q=sb.value.trim().toLowerCase(); if(!q)return; cy.nodes().filter(n=>n.data('label').toLowerCase().includes(q)||(n.data('text')||'').toLowerCase().includes(q)).addClass('searchMatch'); }; }
+    function showDetails(ele){ const det=document.getElementById('detailsTab'); let html='<h4>Basic Info</h4>'; if(ele.isNode()){ html+=`<b>Label:</b> ${ele.data('label')}<br>`; html+=`<b>Category:</b> ${ele.data('category')}<br>`; html+=`<b>Weight:</b> ${ele.data('weight')}<br>`; html+=`<b>Text:</b> ${ele.data('text')||'N/A'}<br>`; const inc=ele.incomers('edge').map(e=>`${e.data('label')} from ${e.data('source')}`); const out=ele.outgoers('edge').map(e=>`${e.data('label')} to ${e.data('target')}`); html+='<h4>Connections</h4>'; html+='<b>Incoming:</b><ul>'+inc.map(i=>`<li>${i}</li>`).join('')+'</ul>'; html+='<b>Outgoing:</b><ul>'+out.map(o=>`<li>${o}</li>`).join('')+'</ul>';} else{ html+=`<b>Label:</b> ${ele.data('label')}<br>`; html+=`<b>Source:</b> ${ele.data('source')}<br>`; html+=`<b>Target:</b> ${ele.data('target')}<br>`;} det.innerHTML=html; openFlyout('detailsTab'); }
+    function openFlyout(tab){ const f=document.getElementById('flyout'); f.classList.add('open'); document.getElementById('flyoutTitle').textContent={detailsTab:'Details',statsTab:'Statistics'}[tab]; document.querySelectorAll('.flyout-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab)); document.querySelectorAll('.flyout-content>div').forEach(d=>d.classList.toggle('active',d.id===tab)); }
+    function closeFlyout(){ document.getElementById('flyout').classList.remove('open'); }
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.getElementById('loadBtn').onclick=()=>document.getElementById('fileInput').click();
+      document.getElementById('fileInput').onchange=e=>{ const r=new FileReader(); r.onload=()=>initializeCy(JSON.parse(r.result)); r.readAsText(e.target.files[0]); };
+      document.getElementById('saveBtn').onclick=()=>{ const nd=cy.nodes().map(n=>n.data()), ed=cy.edges().map(e=>e.data()); const b=new Blob([JSON.stringify({nodes:nd,edges:ed},null,2)],{type:'application/json'}), u=URL.createObjectURL(b),a=document.createElement('a'); a.href=u; a.download='graph.json'; a.click(); URL.revokeObjectURL(u); };
+      document.getElementById('exportBtn').onclick=()=>{ const m=document.getElementById('exportMenu'); m.style.display=m.style.display==='block'?'none':'block'; };
+      document.getElementById('exportPNG').onclick=()=>{ const uri=cy.png({full:true,scale:2}),a=document.createElement('a'); a.href=uri; a.download='graph.png'; a.click(); };
+      document.getElementById('exportSVG').onclick=()=>{ const svg=cy.svg({full:true}),b=new Blob([svg],{type:'application/svg+xml'}), u=URL.createObjectURL(b),a=document.createElement('a'); a.href=u; a.download='graph.svg'; a.click(); URL.revokeObjectURL(u); };
+      document.getElementById('exportPDF').onclick=()=>{ const uri=cy.png({full:true,scale:2}),{jsPDF}=window.jspdf,pdf=new jsPDF('l','px',[cy.width(),cy.height()]); pdf.addImage(uri,'PNG',0,0,cy.width(),cy.height()); pdf.save('graph.pdf'); };
+      document.getElementById('layoutSelect').onchange=e=>cy.layout({name:e.target.value,animate:true,padding:50}).run();
+      document.getElementById('highlightIsolatedBtn').onclick=()=>{ cy.nodes().removeClass('isolatedHighlight'); cy.nodes().filter(n=>n.degree()===0).addClass('isolatedHighlight'); };
+      document.getElementById('undoBtn').onclick=()=>{ ur.undo(); updateUndoRedoButtons(); };
+      document.getElementById('redoBtn').onclick=()=>{ ur.redo(); updateUndoRedoButtons(); };
+      document.getElementById('weightSlider').oninput=e=>{ minWeightFilter=+e.target.value; document.getElementById('weightVal').textContent=minWeightFilter; applyFilters(); };
+      document.getElementById('openFlyoutBtn').onclick=()=>openFlyout('detailsTab');
+      document.getElementById('closeFlyoutBtn').onclick=()=>closeFlyout();
+      document.querySelectorAll('.flyout-tab').forEach(tab=>tab.onclick=()=>openFlyout(tab.dataset.tab));
+      document.getElementById('modeToggle').onclick=()=>document.body.classList.toggle('dark');
+      initializeCy({nodes:[],edges:[]});
+    });
+  </script>
+</body>
+</html>
