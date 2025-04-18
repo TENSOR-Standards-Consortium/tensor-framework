@@ -9,12 +9,12 @@
 <body>
   <header>
     <img src="{{ '/assets/images/logo-framework.png' | relative_url }}"
-         alt="TENSOR Logo" height="50">
+    alt="TENSOR Logo" height="50">
     <h1>{{ site.title }}</h1>
     <nav>
-      <a href="{{ '/' | relative_url }}">Home</a> |
+      <a href="{{ '/'           | relative_url }}">Home</a> |
       <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Latest Graph JSON</a> |
-      <a href="{{ '/visualizer/' | relative_url }}">Visualizer</a>
+      <a href="{{ '/visualizer/'            | relative_url }}">Visualizer</a>
     </nav>
     <div class="version-selector">
       {% include version_selector.html %}
