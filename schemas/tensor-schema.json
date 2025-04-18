@@ -1,0 +1,84 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TENSOR Investigative Graph Schema",
+    "description": "Schema for versioned TENSOR core JSON decision graphs.",
+    "type": "object",
+    "properties": {
+      "tensorVersion": {
+        "type": "string",
+        "description": "Semantic version of this graph (e.g., \"v0.1.0\")."
+      },
+      "nodes": {
+        "type": "array",
+        "description": "List of investigative questions as graph nodes.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique node identifier."
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Full question text."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Short label (e.g., \"Q1: File malicious? [5]\")."
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Investigation category (File, Email, Host, etc.)."
+                },
+                "weight": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "description": "Relative importance (1–5)."
+                }
+              },
+              "required": ["id","text","label","category","weight"]
+            }
+          },
+          "required": ["data"]
+        }
+      },
+      "edges": {
+        "type": "array",
+        "description": "List of directed transitions between questions.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Unique edge identifier."
+                },
+                "source": {
+                  "type": "string",
+                  "description": "Source node id."
+                },
+                "target": {
+                  "type": "string",
+                  "description": "Target node id."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Transition label (e.g., Yes, No)."
+                }
+              },
+              "required": ["id","source","target","label"]
+            }
+          },
+          "required": ["data"]
+        }
+      }
+    },
+    "required": ["nodes","edges"]
+  }
+  

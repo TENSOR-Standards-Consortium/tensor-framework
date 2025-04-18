@@ -1,4 +1,4 @@
-/* resets */
+/* reset */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -11,47 +11,44 @@ body {
 /* Banner */
 .banner img {
   width: 100%;
-  max-height: 200px;
+  max-height: 180px;
   object-fit: cover;
   display: block;
 }
 
-/* Header */
-header {
-  background: white;
-  border-bottom: 1px solid #ddd;
+/* Dark header */
+.dark-header {
+  background: #1f2937;
+  color: white;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1rem;
 }
-header .framework-logo {
+.dark-header .framework-logo {
   height: 80px;
 }
-
-/* Navigation */
-nav a {
-  color: #007acc;
-  text-decoration: none;
-  margin-right: .5rem;
+.dark-header nav {
+  flex-grow: 1;
 }
-nav a:hover {
+.dark-header nav a {
+  color: #e5e7eb;
+  text-decoration: none;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+.dark-header nav a:hover {
+  color: white;
   text-decoration: underline;
 }
-
-/* Version selector */
-.version-form {
-  margin-top: .5rem;
-  font-size: .9rem;
-}
-.version-form small {
-  display: block;
-  margin-top: .25rem;
-  color: #666;
+.version-selector {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: #e5e7eb;
 }
 
-/* Main container */
+/* Main content */
 main {
   max-width: 900px;
   margin: 2rem auto;
@@ -68,9 +65,9 @@ main {
   margin-bottom: 2rem;
 }
 .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-.hero p  { font-size: 1.15rem; }
+.hero p  { font-size: 1.15rem; max-width: 700px; margin: 0 auto; }
 
-/* Features grid */
+/* Features */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
@@ -87,7 +84,11 @@ main {
 .feature-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .feature-card h3 { color: #007acc; margin-bottom: .5rem; }
 
-/* CTA button */
+/* CTA */
+.cta {
+  text-align: center;
+  margin: 3rem 0;
+}
 .cta a {
   display: inline-block;
   background: #007acc;
@@ -96,6 +97,7 @@ main {
   border-radius: 4px;
   text-decoration: none;
   font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .cta a:hover { background: #005fa3; }
 

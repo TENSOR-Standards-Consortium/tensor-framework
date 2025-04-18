@@ -4,11 +4,10 @@ theme: minima
 plugins:
   - jekyll-feed
 
-# YOUR REPO NAME here:
 baseurl: "/tensor-framework"
 url:    "https://tensor-standards-consortium.github.io"
 
 include:
   - core
   - visualizer
-  - schemas
+  - schemas   # <- make sure docs/schemas/ exists!
