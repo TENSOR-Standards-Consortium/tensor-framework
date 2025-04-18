@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install prerequisites
+      - name: Install jq (for manifest parsing)
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
@@ -29,39 +29,34 @@ jobs:
         with:
           ruby-version: '3.1.4'
 
-      - name: Install Jekyll & theme
+      - name: Install Jekyll & Theme
         run: gem install jekyll minima jekyll-feed
 
       - name: Prepare docs source
         run: |
-          # Clean out any old copies
-          rm -rf docs/core docs/visualizer docs/assets/images
+          # clean out old copies
+          rm -rf docs/core docs/visualizer docs/assets/images docs/_data
 
-          # Copy versioned core JSONs & manifest
-          cp -R core docs/core
+          # recreate required docs subdirs
+          mkdir -p docs/core docs/visualizer docs/assets/images docs/_data
+
+          # copy your versioned JSONs
+          cp -R core/* docs/core/
+
+          # copy manifest into Jekyll data folder
           cp core/manifest.json docs/_data/manifest.json
 
-          # Copy visualizer app
-          cp -R visualizer docs/visualizer
+          # copy the visualizer app
+          cp -R visualizer/* docs/visualizer/
 
-          # Copy your logos into the docs assets/images
-          mkdir -p docs/assets/images
-          cp assets/images/logo-framework.png docs/assets/images/
-          cp assets/images/logo-consortium.png docs/assets/images/
+          # copy your logos into docs assets
+          cp assets/images/logo-framework.png    docs/assets/images/
+          cp assets/images/logo-consortium.png   docs/assets/images/
 
       - name: Build Jekyll site
         run: jekyll build --source docs --destination public
 
-      - name: Promote core versions & create “latest” symlink
-        run: |
-          mkdir -p public/core
-          cp public/_data/manifest.json public/core/manifest.json
-          latest=$(jq -r .latest public/core/manifest.json)
-          mkdir -p public/core/${latest}
-          cp public/core/${latest}/tensor-core.json public/core/${latest}/
-          cd public/core && ln -sfn ${latest} latest
-
-      - name: Deploy to GitHub Pages
+      - name: Publish to GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload site artifact
@@ -69,5 +64,5 @@ jobs:
         with:
           path: public
 
-      - name: Publish
+      - name: Deploy
         uses: actions/deploy-pages@v4
