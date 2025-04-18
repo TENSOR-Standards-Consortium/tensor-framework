@@ -1,70 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>{{ page.title }} — {{ site.title }}</title>
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
-    rel="stylesheet">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link href="/assets/css/tailwind.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="antialiased text-gray-800">
 
-  <!-- STICKY NAVBAR -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <!-- small symbol‑only logo -->
-      <a href="{{ '/' | relative_url }}">
-        <img src="{{ '/assets/images/logo-small.png' | relative_url }}"
-             alt="TENSOR logo" class="nav-logo" />
+  <!-- NAVBAR -->
+  <header class="sticky top-0 bg-navy z-50">
+    <div class="max-w-6xl mx-auto flex items-center px-6 py-3">
+      <a href="/" class="mr-8">
+        <img src="/assets/images/logo.svg" alt="TENSOR logo" class="h-10"/>
       </a>
-      <nav class="nav-links">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Graph JSON</a>
-        <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">Schema</a>
-        <a href="{{ '/visualizer/' | relative_url }}">Visualizer</a>
+      <nav class="flex space-x-6">
+        <a href="/" class="text-gray-200 hover:text-white">Home</a>
+        <a href="/core/latest/tensor-core.json" class="text-gray-200 hover:text-white">Graph JSON</a>
+        <a href="/schemas/tensor-schema.json" class="text-gray-200 hover:text-white">Schema</a>
+        <a href="/visualizer/" class="text-gray-200 hover:text-white">Visualizer</a>
       </nav>
-      <!-- version selector removed per feedback -->
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-      <h1>Unlock Consistent, Reproducible SOC Investigations</h1>
-      <p class="hero-sub">
-        The TENSOR framework standardizes your SOC workflows into a single,
-        versioned JSON graph—ready for human analysts and AI agents alike.
-      </p>
-      <a class="button primary" href="{{ '/visualizer/' | relative_url }}">
-        Launch Visualizer →
-      </a>
-      <!-- show the full‑sized consortium & framework logos -->
-      <div class="hero-logos">
-        <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
-             alt="TENSOR Standards Consortium" class="hero-logo large" />
-        <img src="{{ '/assets/images/logo-framework.png' | relative_url }}"
-             alt="TENSOR Framework" class="hero-logo medium" />
-      </div>
-    </div>
-  </section>
-
   <!-- PAGE CONTENT -->
-  <main class="site-main container">
-    {{ content }}
-  </main>
+  <main>{{ content }}</main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium —
-        <a href="https://github.com/tensor-standards-consortium/tensor-framework" target="_blank">
-          View on GitHub
-        </a>
-      </p>
-    </div>
+  <footer class="bg-navy text-gray-400 text-center py-6 mt-12">
+    &copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium —
+    <a href="https://github.com/tensor-standards-consortium/tensor-framework"
+       class="hover:text-white">View on GitHub</a>
   </footer>
 </body>
 </html>

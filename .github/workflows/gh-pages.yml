@@ -1,5 +1,4 @@
-# .github/workflows/gh-pages.yml
-name: Deploy TENSOR Framework Site
+name: Deploy Tensor Framework Site
 
 on:
   push:
@@ -8,63 +7,43 @@ on:
 
 permissions:
   contents: read
-  pages:   write
+  pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  build_and_deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install prerequisites
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          ruby-version: '3.1.4'
+          node-version: '18'
 
-      - name: Install Jekyll & theme
-        run: gem install jekyll minima jekyll-feed
-
-      - name: Prepare docs source
+      - name: Install dependencies & build CSS
+        working-directory: docs
         run: |
-          rm -rf docs/core docs/visualizer docs/assets/images docs/_data docs/schemas
-          mkdir -p docs/core docs/visualizer docs/assets/images docs/_data docs/schemas
+          npm ci
+          npm run build:css
 
-          cp -R core/*                    docs/core/
-          cp core/manifest.json           docs/_data/manifest.json
-          cp schemas/tensor-schema.json   docs/schemas/tensor-schema.json
-          cp -R visualizer/*              docs/visualizer/
-          cp assets/images/logo-framework.png  docs/assets/images/
-          cp assets/images/logo-consortium.png docs/assets/images/
-
-      - name: Build Jekyll site
-        run: jekyll build --source docs --destination public
-
-      - name: Promote core versions & create “latest” symlink
-        run: |
-          mkdir -p public/core
-          # Copy manifest.json into public/core
-          cp docs/_data/manifest.json public/core/manifest.json
-          # Read latest version from that manifest
-          latest=$(jq -r .latest public/core/manifest.json)
-          # Create (or update) the 'latest' symlink
-          cd public/core
-          ln -sfn ${latest} latest
-
-      - name: Deploy to GitHub Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload site artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: docs
 
-      - name: Publish
+      - name: Deploy to GitHub Pages
+        id: deploy
         uses: actions/deploy-pages@v4
