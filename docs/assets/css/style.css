@@ -1,6 +1,6 @@
-/*=============================================
-=            Global & Reset                  =
-=============================================*/
+/*---------------------------------------------
+  Global Reset & Typography
+---------------------------------------------*/
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Inter', sans-serif;
@@ -14,198 +14,144 @@ body {
   padding: 0 1rem;
 }
 
-/*=============================================
-=            Navbar (Sticky)                 =
-=============================================*/
+/*---------------------------------------------
+  Navbar
+---------------------------------------------*/
 .navbar {
-  position: sticky;
-  top: 0;
-  background: rgba(20,20,20,0.95);
-  backdrop-filter: blur(6px);
+  position: sticky; top: 0;
+  background: #1a1a1a;
   z-index: 1000;
 }
 .nav-inner {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   padding: 0.75rem 0;
 }
-.nav-logo {
-  height: 40px;
-  margin-right: 2rem;
-}
+.nav-logo { height: 40px; margin-right: 2rem; }
 .nav-links {
-  display: flex;
-  gap: 1.5rem;
+  display: flex; gap: 1.5rem;
+  flex-grow: 1;
 }
 .nav-links a {
-  color: #eee;
-  text-decoration: none;
-  font-weight: 500;
+  color: #eee; text-decoration: none; font-weight: 500;
   transition: color .2s;
 }
-.nav-links a:hover {
-  color: #1fb6ff;
-}
-.nav-cta {
-  margin-left: auto;
-  font-size: 0.9rem;
-}
-.nav-cta select {
-  background: #333;
-  color: #eee;
-  border: 1px solid #555;
-  padding: 0.25rem;
-}
+.nav-links a:hover { color: #1fb6ff; }
 
-/*=============================================
-=              Hero Section                  =
-=============================================*/
+/*---------------------------------------------
+  Hero Section
+---------------------------------------------*/
 .hero {
   position: relative;
   height: 60vh;
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   background:
-    linear-gradient(
-      135deg,
-      rgba(0,207,163,0.7),
-      rgba(0,142,207,0.7)
-    ),
-    url('{{ "/assets/images/logo-consortium.png" | relative_url }}') center/cover no-repeat;
+    linear-gradient(135deg, #009eeb 0%, #1fb6ff 100%),
+    url('{{ "/assets/images/logo-consortium.png" | relative_url }}')
+      center/cover no-repeat;
 }
 .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.25);
 }
 .hero-content {
-  position: relative;
-  text-align: center;
-  width: 100%;
-  color: #fff;
+  position: relative; text-align: center;
+  color: #fff; width: 100%; padding: 0 1rem;
 }
 .hero-content h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 3rem; margin-bottom: 0.75rem;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 .hero-sub {
-  font-size: 1.25rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
+  font-size: 1.25rem; margin-bottom: 1.5rem;
 }
 .button.primary {
-  background: #fff;
-  color: #009eeb;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
+  background: #fff; color: #009eeb;
+  padding: 0.75rem 1.5rem; border-radius: 4px;
+  text-decoration: none; font-weight: 600;
   transition: background .2s, color .2s;
 }
 .button.primary:hover {
-  background: #009eeb;
-  color: #fff;
+  background: #009eeb; color: #fff;
 }
+/* Consortium + Framework logos in hero */
+.hero-logos {
+  margin-top: 2rem;
+  display: flex; justify-content: center; gap: 2rem;
+}
+.hero-logo.large { height: 100px; opacity: 0.8; }
+.hero-logo.medium { height: 80px; opacity: 1; }
 
-/*=============================================
-=         Section Separators                 =
-=============================================*/
-.section {
-  padding: 4rem 0;
-}
-.section.light {
-  background: #fff;
-}
-.section.dark {
-  background: #f0f4f8;
-}
+/*---------------------------------------------
+  Sections & Grids
+---------------------------------------------*/
+.section { padding: 4rem 0; }
+.section.light { background: #fff; }
+.section.dark  { background: #f0f4f8; }
 
-/*=============================================
-=          “What • Why • How” Grid           =
-=============================================*/
+/* Three‑col “What/Why/How” */
 .three-col {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  grid-template-columns: repeat(auto‑fit,minmax(260px,1fr));
   gap: 2rem;
 }
-.three-col h2 {
-  font-size: 1.75rem;
-  margin-bottom: 0.75rem;
-}
+.three-col h2 { font-size: 1.75rem; margin-bottom: .75rem; }
 .three-col p,
 .three-col ul,
 .three-col ol {
-  font-size: 1rem;
-  color: #444;
-  margin-left: 1rem;
-}
-.three-col ul li, .three-col ol li {
-  margin-bottom: 0.5rem;
+  color: #444; margin-left: 1rem;
 }
 
-/*=============================================
-=             Feature Cards                  =
-=============================================*/
+/* Feature cards */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto‑fit,minmax(220px,1fr));
+  gap: 2rem; margin-bottom: 4rem;
 }
 .card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  transition: transform .2s, box-shadow .2s;
+  background: #fff; border-radius: 8px;
+  padding: 2rem 1.5rem; text-align: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform .2s, box-shadow .2s;
 }
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 .card-icon {
-  height: 48px;
-  margin-bottom: 1rem;
+  height: 48px; margin-bottom: 1rem;
 }
 
-/*=============================================
-=           Get Involved CTA                 =
-=============================================*/
-.get-involved {
-  text-align: center;
-  padding: 3rem 0;
+/* Dive‑Deeper graph previews */
+.graph-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
-.get-involved h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-.get-involved a.button {
-  background: #1fb6ff;
-  color: #fff;
-  padding: 0.75rem 1.75rem;
+.graph-previews img {
+  max-width: 48%;
+  border: 2px solid #ccc;
   border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
 }
-.get-involved a.button:hover {
+
+/* Get Involved CTA */
+.get-involved {
+  text-align: center; padding: 3rem 0;
+}
+.get-involved h2 { font-size: 2rem; margin-bottom: 1rem; }
+.get-involved .button {
+  background: #1fb6ff; color: #fff;
+  padding: .75rem 1.75rem; border-radius: 4px;
+  text-decoration: none; font-weight: 600;
+}
+.get-involved .button:hover {
   background: #009eeb;
 }
 
-/*=============================================
-=                  Footer                     =
-=============================================*/
+/* Footer */
 .footer {
-  background: #111;
-  color: #888;
-  padding: 2rem 0;
-  text-align: center;
-  font-size: 0.9rem;
+  background: #111; color: #888;
+  text-align: center; padding: 2rem 0;
 }
-.footer a {
-  color: #aaa;
-  text-decoration: none;
-}
-.footer a:hover {
-  color: #fff;
-}
+.footer a { color: #aaa; text-decoration: none; }
+.footer a:hover { color: #fff; }

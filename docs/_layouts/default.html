@@ -3,45 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>{{ page.title }} — {{ site.title }}</title>
-
-  <!-- Google Fonts -->
+  <title>{{ page.title }} — {{ site.title }}</title>
   <link 
-    href="https://fonts.googleapis.com/css2?
-      family=Inter:wght@400;600;700&
-      family=Roboto:wght@300;400;500&
-    display=swap" rel="stylesheet">
-
-  <!-- Main stylesheet -->
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" 
+    rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
 
-  <!-- Sticky Navbar -->
+  <!-- STICKY NAVBAR -->
   <header class="navbar">
     <div class="container nav-inner">
-      <!-- small symbol-only logo -->
+      <!-- small symbol‑only logo -->
       <a href="{{ '/' | relative_url }}">
-        <img src="{{ '/assets/images/logo.png' | relative_url }}"
-             alt="TENSOR" class="nav-logo" />
+        <img src="{{ '/assets/images/logo-small.png' | relative_url }}"
+             alt="TENSOR logo" class="nav-logo" />
       </a>
-
-      <!-- primary nav -->
       <nav class="nav-links">
-        <a href="{{ '/'                                         | relative_url }}">Home</a>
-        <a href="{{ '/core/latest/tensor-core.json'              | relative_url }}">Graph JSON</a>
-        <a href="{{ '/schemas/tensor-schema.json'                | relative_url }}">Schema</a>
-        <a href="{{ '/visualizer/'                              | relative_url }}">Visualizer</a>
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">Graph JSON</a>
+        <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">Schema</a>
+        <a href="{{ '/visualizer/' | relative_url }}">Visualizer</a>
       </nav>
-
-      <!-- version dropdown, aligned right -->
-      <div class="nav-cta">
-        {% include version_selector.html %}
-      </div>
+      <!-- version selector removed per feedback -->
     </div>
   </header>
 
-  <!-- Hero section with logo-consortium as blended background -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
@@ -53,19 +41,28 @@
       <a class="button primary" href="{{ '/visualizer/' | relative_url }}">
         Launch Visualizer →
       </a>
+      <!-- show the full‑sized consortium & framework logos -->
+      <div class="hero-logos">
+        <img src="{{ '/assets/images/logo-consortium.png' | relative_url }}"
+             alt="TENSOR Standards Consortium" class="hero-logo large" />
+        <img src="{{ '/assets/images/logo-framework.png' | relative_url }}"
+             alt="TENSOR Framework" class="hero-logo medium" />
+      </div>
     </div>
   </section>
 
-  <!-- Main content -->
-  <main class="site-main">
+  <!-- PAGE CONTENT -->
+  <main class="site-main container">
     {{ content }}
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium
-        — <a href="https://github.com/tensor-standards-consortium/tensor-framework" target="_blank">GitHub</a>
+      <p>&copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium —
+        <a href="https://github.com/tensor-standards-consortium/tensor-framework" target="_blank">
+          View on GitHub
+        </a>
       </p>
     </div>
   </footer>
