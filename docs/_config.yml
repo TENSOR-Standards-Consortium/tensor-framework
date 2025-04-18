@@ -1,13 +1,13 @@
-title: TENSOR Framework Documentation
-description: Official docs & interactive visualizer for the TENSOR standard
+# docs/_config.yml
+
+title: TENSOR Framework
+description: A JSON‑first standard defining 75+ investigative questions for SOC workflows.
+url: https://tensor-standards-consortium.github.io
+baseurl: /tensor-framework
+
+# Use the minima theme for simplicity (or replace with your custom theme)
 theme: minima
+
+# Show readable dates in posts (not strictly needed here)
 plugins:
   - jekyll-feed
-
-baseurl: "/tensor-framework"
-url:    "https://tensor-standards-consortium.github.io"
-
-include:
-  - core
-  - visualizer
-  - schemas   # <- make sure docs/schemas/ exists!

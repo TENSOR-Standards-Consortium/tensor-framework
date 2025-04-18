@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>{{ page.title }} — {{ site.title }}</title>
-  <link href="/assets/css/tailwind.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ page.title | default: site.title }} — {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/tailwind.css" />
 </head>
-<body class="antialiased text-gray-800">
+<body class="min-h-screen flex flex-col font-sans text-gray-800">
 
   <!-- NAVBAR -->
-  <header class="sticky top-0 bg-navy z-50">
-    <div class="max-w-6xl mx-auto flex items-center px-6 py-3">
-      <a href="/" class="mr-8">
-        <img src="/assets/images/logo.svg" alt="TENSOR logo" class="h-10"/>
+  <header class="bg-navy text-gray-200">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <a href="{{ site.baseurl }}/" class="flex items-center">
+        <img src="{{ site.baseurl }}/assets/images/logo.svg" alt="TENSOR logo" class="h-10 w-auto"/>
       </a>
-      <nav class="flex space-x-6">
-        <a href="/" class="text-gray-200 hover:text-white">Home</a>
-        <a href="/core/latest/tensor-core.json" class="text-gray-200 hover:text-white">Graph JSON</a>
-        <a href="/schemas/tensor-schema.json" class="text-gray-200 hover:text-white">Schema</a>
-        <a href="/visualizer/" class="text-gray-200 hover:text-white">Visualizer</a>
+      <nav class="space-x-6 text-lg">
+        <a href="{{ site.baseurl }}/" class="hover:text-white">Home</a>
+        <a href="{{ site.baseurl }}/core/latest/tensor-core.json" class="hover:text-white">Graph JSON</a>
+        <a href="{{ site.baseurl }}/schemas/tensor-schema.json" class="hover:text-white">Schema</a>
+        <a href="{{ site.baseurl }}/visualizer/" class="hover:text-white">Visualizer</a>
       </nav>
     </div>
   </header>
 
   <!-- PAGE CONTENT -->
-  <main>{{ content }}</main>
+  <main class="flex-grow">
+    {{ content }}
+  </main>
 
   <!-- FOOTER -->
-  <footer class="bg-navy text-gray-400 text-center py-6 mt-12">
-    &copy; {{ 'now' | date: "%Y" }} TENSOR Standards Consortium —
-    <a href="https://github.com/tensor-standards-consortium/tensor-framework"
-       class="hover:text-white">View on GitHub</a>
+  <footer class="bg-navy text-gray-400 text-center py-6">
+    &copy; {{ "now" | date: "%Y" }} TENSOR Standards Consortium —
+    <a class="hover:text-white" href="https://github.com/tensor-standards-consortium/tensor-framework">View on GitHub</a>
   </footer>
+
 </body>
 </html>

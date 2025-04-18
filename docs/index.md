@@ -3,61 +3,94 @@ layout: default
 title: Home
 ---
 
-<!-- Why TENSOR Section -->
-<section class="section dark">
-  <div class="container three-col">
-    <div>
-      <h2>What Is TENSOR?</h2>
-      <p>A JSON‑first standard defining 75+ investigative questions across File, Email,
-         Host, Network, Identity, Cloud & Application domains.</p>
-    </div>
-    <div>
-      <h2>Why TENSOR?</h2>
-      <ul>
-        <li>✅ <strong>Consistent Investigations</strong>—everyone follows the same flow.</li>
-        <li>✅ <strong>Semantic Versioning</strong>—lock to vX.Y.Z for audits.</li>
-        <li>✅ <strong>Extensible Modules</strong>—plug in remediation or AI agents.</li>
-        <li>✅ <strong>Tool‑Agnostic</strong>—runs in any SIEM, SOAR, or custom UI.</li>
-      </ul>
-    </div>
-    <div>
-      <h2>How To Get Started</h2>
-      <ol>
-        <li>Download graph: 
-          <a href="{{ '/core/latest/tensor-core.json' | relative_url }}">tensor-core.json</a>
-        </li>
-        <li>Validate schema: 
-          <a href="{{ '/schemas/tensor-schema.json' | relative_url }}">tensor-schema.json</a>
-        </li>
-        <li>Explore visually:
-          <a href="{{ '/visualizer/' | relative_url }}">Launch Visualizer</a>
-        </li>
-        <li>Contribute: propose questions or modules on GitHub.</li>
-      </ol>
+<!-- HERO -->
+<section class="bg-gradient-to-r from-navy to-teal text-white py-20">
+  <div class="max-w-4xl mx-auto text-center px-4">
+    <img src="{{ site.baseurl }}/assets/images/logo-consortium.png" alt="TENSOR Standards Consortium" class="mx-auto mb-8 h-48 w-auto"/>
+    <h1 class="text-4xl font-extrabold mb-4">
+      Unlock Consistent, Reproducible SOC Investigations
+    </h1>
+    <p class="text-lg mb-8">
+      The TENSOR framework standardizes your SOC workflows into a single, versioned JSON graph—ready for human analysts and AI agents alike.
+    </p>
+    <a href="{{ site.baseurl }}/visualizer/" class="inline-block bg-white text-navy font-semibold py-3 px-6 rounded-lg shadow hover:bg-gray-100 transition">
+      Launch Visualizer →
+    </a>
+    <div class="mt-10 flex justify-center space-x-6">
+      <img src="{{ site.baseurl }}/assets/images/logo-consortium.png" alt="Consortium Logo" class="h-24"/>
+      <img src="{{ site.baseurl }}/assets/images/logo-framework.png" alt="Framework Logo" class="h-24"/>
     </div>
   </div>
 </section>
 
-<!-- Dive Deeper Graph Previews -->
-<section class="section light">
-  <div class="container">
-    <h2 style="text-align:center; margin-bottom:2rem;">Dive Deeper: See the Core Graph</h2>
-    <div class="graph-previews">
-      <!-- Place your two exports here -->
-      <img src="{{ '/assets/images/graph-export1.png' | relative_url }}"
-           alt="Graph export snapshot #1" />
-      <img src="{{ '/assets/images/graph-export2.png' | relative_url }}"
-           alt="Graph export snapshot #2" />
+<!-- WHAT IS TENSOR -->
+<section class="bg-gray-50 py-16">
+  <div class="max-w-3xl mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-4">What Is TENSOR?</h2>
+    <p class="text-lg text-gray-700">
+      A JSON‑first standard defining 75+ investigative questions across File, Email, Host, Network, Identity, Cloud &amp; Application domains.
+    </p>
+  </div>
+</section>
+
+<!-- WHY TENSOR CARDS -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <img src="{{ site.baseurl }}/assets/icons/check.svg" alt="Check" class="mx-auto h-12 mb-4"/>
+      <h3 class="font-semibold text-xl mb-2">Consistent Investigations</h3>
+      <p>Everyone follows the same flow.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <img src="{{ site.baseurl }}/assets/icons/version.svg" alt="Version" class="mx-auto h-12 mb-4"/>
+      <h3 class="font-semibold text-xl mb-2">Semantic Versioning</h3>
+      <p>Lock to vX.Y.Z for audits.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <img src="{{ site.baseurl }}/assets/icons/plug.svg" alt="Plug" class="mx-auto h-12 mb-4"/>
+      <h3 class="font-semibold text-xl mb-2">Extensible Modules</h3>
+      <p>Plug in remediation or AI agents.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+      <img src="{{ site.baseurl }}/assets/icons/ai.svg" alt="AI" class="mx-auto h-12 mb-4"/>
+      <h3 class="font-semibold text-xl mb-2">Tool‑Agnostic</h3>
+      <p>Runs in any SIEM, SOAR, or custom UI.</p>
     </div>
   </div>
 </section>
 
-<!-- Get Involved -->
-<section class="section dark get-involved">
-  <h2>Join the TENSOR Standards Consortium</h2>
-  <p>Help us evolve the core investigative graph, build modules,
-     or integrate TENSOR into your platform.</p>
-  <a class="button" href="https://github.com/tensor-standards-consortium/tensor-framework">
-    View on GitHub
-  </a>
+<!-- HOW TO GET STARTED -->
+<section class="bg-gray-50 py-16">
+  <div class="max-w-3xl mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-4">How To Get Started</h2>
+    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+      <li>Download graph: <a href="{{ site.baseurl }}/core/latest/tensor-core.json" class="text-teal hover:underline">tensor-core.json</a></li>
+      <li>Validate schema: <a href="{{ site.baseurl }}/schemas/tensor-schema.json" class="text-teal hover:underline">tensor-schema.json</a></li>
+      <li>Explore visually: <a href="{{ site.baseurl }}/visualizer/" class="text-teal hover:underline">Launch Visualizer</a></li>
+      <li>Contribute: propose questions or modules on GitHub.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- DIVE DEEPER GRAPH PREVIEWS -->
+<section class="py-16">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-2xl font-bold mb-6">Dive Deeper: See the Core Graph</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <img src="{{ site.baseurl }}/assets/images/graph-export1.png" alt="Graph export snapshot #1" class="rounded shadow-md"/>
+      <img src="{{ site.baseurl }}/assets/images/graph-export2.png" alt="Graph export snapshot #2" class="rounded shadow-md"/>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED CTA -->
+<section class="bg-gray-800 text-white py-16">
+  <div class="max-w-3xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-4">Join the TENSOR Standards Consortium</h2>
+    <p class="mb-6">Help us evolve the core investigative graph, build modules, or integrate TENSOR into your platform.</p>
+    <a href="https://github.com/tensor-standards-consortium/tensor-framework"
+       class="bg-teal text-navy font-semibold py-3 px-6 rounded-lg hover:bg-green-400 transition">
+      View on GitHub
+    </a>
+  </div>
 </section>
