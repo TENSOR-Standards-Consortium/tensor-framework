@@ -8,3 +8,7 @@ plugins:
 include:
   - core
   - visualizer
+
+# Tell Jekyll “my site lives at /<repo-name>”
+baseurl: "/tensor-framework"
+url:    "https://tensor-standards-consortium.github.io"
