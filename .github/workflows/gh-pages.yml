@@ -34,25 +34,12 @@ jobs:
 
       - name: Prepare docs source
         run: |
-          # Clean out old copies
           rm -rf docs/core docs/visualizer docs/assets/images docs/_data docs/schemas
-
-          # Recreate required docs subdirs
           mkdir -p docs/core docs/visualizer docs/assets/images docs/_data docs/schemas
-
-          # Copy versioned core JSONs
-          cp -R core/* docs/core/
-
-          # Copy manifest into Jekyll data folder
-          cp core/manifest.json docs/_data/manifest.json
-
-          # Copy your JSON Schema
+          cp -R core/*               docs/core/
+          cp core/manifest.json      docs/_data/manifest.json
           cp schemas/tensor-schema.json docs/schemas/tensor-schema.json
-
-          # Copy the visualizer app
-          cp -R visualizer/* docs/visualizer/
-
-          # Copy your logos into docs assets
+          cp -R visualizer/*         docs/visualizer/
           cp assets/images/logo-framework.png  docs/assets/images/
           cp assets/images/logo-consortium.png docs/assets/images/
 
@@ -62,7 +49,8 @@ jobs:
       - name: Promote core versions & create “latest” symlink
         run: |
           mkdir -p public/core
-          cp public/_data/manifest.json public/core/manifest.json
+          # copy manifest from docs/_data (Jekyll doesn't emit _data into public)
+          cp docs/_data/manifest.json public/core/manifest.json
           latest=$(jq -r .latest public/core/manifest.json)
           mkdir -p public/core/${latest}
           cp public/core/${latest}/tensor-core.json public/core/${latest}/
