@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install jq (for parsing manifest)
+      - name: Install jq (for reading manifest)
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
@@ -29,20 +29,29 @@ jobs:
           ruby-version: '3.1.4'
 
       - name: Install Jekyll & theme
-        run: |
-          gem install jekyll minima jekyll-feed
+        run: gem install jekyll minima jekyll-feed
 
       - name: Build Jekyll site
-        run: |
-          jekyll build docs --destination public
+        run: jekyll build docs --destination public
 
-      - name: Copy core JSON versions
+      - name: Copy core JSON versions & create “latest” symlink
         run: |
+          # Prepare public/core
           mkdir -p public/core
+
+          # Copy manifest so docs can read it at runtime
           cp core/manifest.json public/core/
+
+          # Read the latest version from the manifest
           latest=$(jq -r .latest core/manifest.json)
-          mkdir -p public/core/latest
-          cp core/$latest/tensor-core.json public/core/latest/
+
+          # Copy the versioned JSON into public/core
+          mkdir -p public/core/${latest}
+          cp core/${latest}/tensor-core.json public/core/${latest}/
+
+          # Create a symlink “latest” → “vX.Y.Z”
+          cd public/core
+          ln -sfn ${latest} latest
 
       - name: Deploy to GitHub Pages
         uses: actions/configure-pages@v5
@@ -53,5 +62,4 @@ jobs:
           path: public
 
       - name: Publish
-        id: deployment
         uses: actions/deploy-pages@v4
