@@ -1,4 +1,4 @@
-name: Deploy Jekyll docs & Visualizer to GitHub Pages
+name: Deploy TENSOR Framework Site
 
 on:
   push:
@@ -6,34 +6,35 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read    # for checkout
-  pages: write      # to deploy to Pages
-  id-token: write   # for Actions auth
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install jq (for parsing manifest)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.1.4'
 
-      - name: Install Jekyll & dependencies
+      - name: Install Jekyll & theme
         run: |
-          cd docs
-          gem install bundler jekyll minima jekyll-feed
-          bundle init
-          bundle add jekyll minima jekyll-feed
+          gem install jekyll minima jekyll-feed
 
-      - name: Build site with Jekyll
+      - name: Build Jekyll site
         run: |
-          cd docs
-          bundle exec jekyll build --destination ../public
+          jekyll build docs --destination public
 
       - name: Copy core JSON versions
         run: |
@@ -41,12 +42,12 @@ jobs:
           cp core/manifest.json public/core/
           latest=$(jq -r .latest core/manifest.json)
           mkdir -p public/core/latest
-          cp core/${latest}/tensor-core.json public/core/latest/
+          cp core/$latest/tensor-core.json public/core/latest/
 
       - name: Deploy to GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: public

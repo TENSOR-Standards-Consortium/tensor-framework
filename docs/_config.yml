@@ -1,5 +1,5 @@
 title: TENSOR Framework Documentation
-description: Official docs for the TENSOR Framework
+description: Official docs & interactive visualizer for the TENSOR standard
 theme: minima
 plugins:
   - jekyll-feed

@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: #007acc;
+    margin-right: .5rem;
+  }
+  .version-selector {
+    margin-top: .5rem;
+  }
+  footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: .9rem;
+    color: #666;
+  }
+  

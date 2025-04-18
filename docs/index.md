@@ -5,10 +5,13 @@ title: Home
 
 # Welcome to the TENSOR Framework
 
-This documentation site is powered by Jekyll.  
+TENSOR (Threat Exploration & Non‑linear Security Orchestration & Response) is
+an open, versioned SOC investigation standard.
 
-- **Latest Investigative Graph:**  
-  [Download & Preview →](/core/latest/tensor-core.json)
+- **Latest Investigative Graph JSON**  
+  [Download →](/core/latest/tensor-core.json)
 
-- **Interactive Visualizer:**  
-  [Launch the graph viewer →](/visualizer/)
+- **Interactive Visualizer**  
+  [Launch →](/visualizer/)
+
+Use the dropdown above to switch between released graph versions.
