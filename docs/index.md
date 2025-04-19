@@ -17,8 +17,12 @@ title: Home
       Launch Visualizer →
     </a>
     <div class="mt-10 flex justify-center space-x-6">
-      <img src="{{ site.baseurl }}/assets/images/logo-consortium.png" alt="Consortium Logo" class="h-24"/>
-      <img src="{{ site.baseurl }}/assets/images/logo-framework.png" alt="Framework Logo" class="h-24"/>
+      <img src="{{ site.baseurl }}/assets/images/logo-consortium.png"
+          alt="Consortium Logo"
+          class="h-24 border-2 border-white p-2 rounded" />
+      <img src="{{ site.baseurl }}/assets/images/logo-framework.png"
+          alt="Framework Logo"
+          class="h-24 border-2 border-white p-2 rounded" />
     </div>
   </div>
 </section>
