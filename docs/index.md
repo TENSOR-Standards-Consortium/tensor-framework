@@ -16,11 +16,6 @@ title: Home
     <a href="{{ site.baseurl }}/visualizer/" class="inline-block bg-white text-navy font-semibold py-3 px-6 rounded-lg shadow hover:bg-gray-100 transition">
       Launch Visualizer →
     </a>
-    <div class="mt-10 flex justify-center space-x-6">
-      <img src="{{ site.baseurl }}/assets/images/logo-consortium.png"
-          alt="Consortium Logo"
-          class="h-24 border-2 border-white p-2 rounded" />
-    </div>
   </div>
 </section>
 
@@ -28,10 +23,30 @@ title: Home
 <section class="bg-gray-50 py-16">
   <div class="max-w-3xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-4">What Is TENSOR?</h2>
+    <p class="text-lg text-gray-700 mb-6">
+      TENSOR is a fully declarative JSON‑based decision graph, where each node
+      represents a discrete investigative question (e.g., “Did the suspicious
+      binary spawn child processes?”) and each directed edge encodes the
+      conditional logic (“Yes”/“No” flows) guiding an analyst through a
+      SOC‑grade triage. Nodes are tagged with one of seven primary categories—
+      **File**, **Email**, **Host**, **Network**, **Identity**, **Cloud**,
+      **Application**—and assigned a numerical weight reflecting their forensic
+      priority. This structure captures the nonlinear reality of incident
+      response—allowing back‑and‑forth loops between host and network indicators—
+      while enforcing semantic versioning (`vX.Y.Z`) so a given playbook can be
+      frozen in time for compliance audits, reproducibility, and regression testing.
+    </p>
     <p class="text-lg text-gray-700">
-  TENSOR is a fully declarative JSON‑based decision graph, where each node represents a discrete investigative question (e.g., “Did the suspicious binary spawn child processes?”) and each directed edge encodes the conditional logic (“Yes”/“No” flows) guiding an analyst through a SOC‑grade triage. Nodes are tagged with one of seven primary categories—**File**, **Email**, **Host**, **Network**, **Identity**, **Cloud**, **Application**—and assigned a numerical weight reflecting their forensic priority. This structure captures the nonlinear reality of incident response—allowing back‑and‑forth loops between host and network indicators—while enforcing semantic versioning (`vX.Y.Z`) so a given playbook can be frozen in time for compliance audits, reproducibility, and regression testing. The core schema defines only the minimal fields (`id`, `text`, `category`, `weight`, `edges`) and extension points (`metadata`, `remediation`, `soarHooks`), enabling organizations to plug in custom scripts or automation hooks without altering the core graph.
-
-  Under the hood, TENSOR maps cleanly to established frameworks: each question node can be annotated with MITRE ATT&CK tactic/technique IDs, and clusters of nodes align with NIST 800‑61r2’s IR phases—**Preparation**, **Detection**, **Containment**, **Eradication**, **Recovery**. Analysts and developers can import the JSON into any graph engine or Python/Go library to produce interactive UIs, run weighted‑node scoring for ML‑driven decision agents, or generate SOC‑playbook documentation. TENSOR is designed for seamless integration into SIEMs, SOAR platforms, and custom dashboards—providing a single source of truth for manual investigations, scripted pipelines, and future AI orchestration in high‑velocity environments.
+      Under the hood, TENSOR maps cleanly to established frameworks: each question
+      node can be annotated with MITRE ATT&CK tactic/technique IDs, and clusters
+      of nodes align with NIST 800‑61r2’s IR phases—**Preparation**, **Detection**,
+      **Containment**, **Eradication**, **Recovery**. Analysts and developers can
+      import the JSON into any graph engine or Python/Go library to produce
+      interactive UIs, run weighted‑node scoring for ML‑driven decision agents,
+      or generate SOC‑playbook documentation. TENSOR is designed for seamless
+      integration into SIEMs, SOAR platforms, and custom dashboards—providing a
+      single source of truth for manual investigations, scripted pipelines, and
+      future AI orchestration in high‑velocity environments.
     </p>
   </div>
 </section>
@@ -88,6 +103,11 @@ title: Home
 
 <!-- GET INVOLVED CTA -->
 <section class="bg-gray-800 text-white py-16">
+  <div class="mt-10 flex justify-center space-x-6">
+    <img src="{{ site.baseurl }}/assets/images/logo-consortium.png"
+        alt="Consortium Logo"
+        class="h-24 border-2 border-white p-2 rounded" />
+  </div>
   <div class="max-w-3xl mx-auto px-4 text-center">
     <h2 class="text-3xl font-bold mb-4">Join the TENSOR Standards Consortium</h2>
     <p class="mb-6">Help us evolve the core investigative graph, build modules, or integrate TENSOR into your platform.</p>
