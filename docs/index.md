@@ -6,7 +6,7 @@ title: Home
 <!-- HERO -->
 <section class="bg-gradient-to-r from-navy to-teal text-white py-20">
   <div class="max-w-4xl mx-auto text-center px-4">
-    <img src="{{ site.baseurl }}/assets/images/logo-consortium.png" alt="TENSOR Standards Consortium" class="mx-auto mb-8 h-48 w-auto"/>
+    <img src="{{ site.baseurl }}/assets/images/logo-framework.png" alt="TENSOR Framework" class="mx-auto mb-8 h-48 w-auto"/>
     <h1 class="text-4xl font-extrabold mb-4">
       Unlock Consistent, Reproducible SOC Investigations
     </h1>
@@ -20,9 +20,6 @@ title: Home
       <img src="{{ site.baseurl }}/assets/images/logo-consortium.png"
           alt="Consortium Logo"
           class="h-24 border-2 border-white p-2 rounded" />
-      <img src="{{ site.baseurl }}/assets/images/logo-framework.png"
-          alt="Framework Logo"
-          class="h-24 border-2 border-white p-2 rounded" />
     </div>
   </div>
 </section>
@@ -32,7 +29,9 @@ title: Home
   <div class="max-w-3xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-4">What Is TENSOR?</h2>
     <p class="text-lg text-gray-700">
-      A JSON‑first standard defining 75+ investigative questions across File, Email, Host, Network, Identity, Cloud &amp; Application domains.
+  TENSOR is a fully declarative JSON‑based decision graph, where each node represents a discrete investigative question (e.g., “Did the suspicious binary spawn child processes?”) and each directed edge encodes the conditional logic (“Yes”/“No” flows) guiding an analyst through a SOC‑grade triage. Nodes are tagged with one of seven primary categories—**File**, **Email**, **Host**, **Network**, **Identity**, **Cloud**, **Application**—and assigned a numerical weight reflecting their forensic priority. This structure captures the nonlinear reality of incident response—allowing back‑and‑forth loops between host and network indicators—while enforcing semantic versioning (`vX.Y.Z`) so a given playbook can be frozen in time for compliance audits, reproducibility, and regression testing. The core schema defines only the minimal fields (`id`, `text`, `category`, `weight`, `edges`) and extension points (`metadata`, `remediation`, `soarHooks`), enabling organizations to plug in custom scripts or automation hooks without altering the core graph.
+
+  Under the hood, TENSOR maps cleanly to established frameworks: each question node can be annotated with MITRE ATT&CK tactic/technique IDs, and clusters of nodes align with NIST 800‑61r2’s IR phases—**Preparation**, **Detection**, **Containment**, **Eradication**, **Recovery**. Analysts and developers can import the JSON into any graph engine or Python/Go library to produce interactive UIs, run weighted‑node scoring for ML‑driven decision agents, or generate SOC‑playbook documentation. TENSOR is designed for seamless integration into SIEMs, SOAR platforms, and custom dashboards—providing a single source of truth for manual investigations, scripted pipelines, and future AI orchestration in high‑velocity environments.
     </p>
   </div>
 </section>
@@ -81,8 +80,8 @@ title: Home
   <div class="max-w-4xl mx-auto px-4 text-center">
     <h2 class="text-2xl font-bold mb-6">Dive Deeper: See the Core Graph</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <img src="{{ site.baseurl }}/assets/images/graph-export1.png" alt="Graph export snapshot #1" class="rounded shadow-md"/>
-      <img src="{{ site.baseurl }}/assets/images/graph-export2.png" alt="Graph export snapshot #2" class="rounded shadow-md"/>
+      <img src="{{ site.baseurl }}/assets/images/graph-export1.png" alt="Graph export snapshot #1" class="h-64 w-auto object-contain rounded shadow-md mx-auto" />
+      <img src="{{ site.baseurl }}/assets/images/graph-export2.png" alt="Graph export snapshot #2" class="h-64 w-auto object-contain rounded shadow-md mx-auto" />
     </div>
   </div>
 </section>

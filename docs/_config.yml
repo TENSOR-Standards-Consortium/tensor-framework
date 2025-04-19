@@ -1,13 +1,33 @@
 # docs/_config.yml
 
-title: TENSOR Framework
-description: A JSON‑first standard defining 75+ investigative questions for SOC workflows.
-url: https://tensor-standards-consortium.github.io
-baseurl: /tensor-framework
+# Site settings
+title:        TENSOR Framework
+description:  A JSON‑first standard defining 75+ investigative questions for SOC workflows
+url:          https://tensor-standards-consortium.github.io
+baseurl:      /tensor-framework    # your GitHub Pages sub‐path
 
-# Use the minima theme for simplicity (or replace with your custom theme)
-theme: minima
+# Theme (you can keep minima or swap it out)
+theme:        minima
 
-# Show readable dates in posts (not strictly needed here)
+# Plugins
 plugins:
   - jekyll-feed
+
+# Tell Jekyll to include these directories (so it doesn’t skip them)
+include:
+  - core
+  - schemas
+  - visualizer
+  - assets
+
+# Exclude nothing else—let Jekyll build everything under docs/
+# (You can also explicitly exclude node_modules if you like)
+exclude: []
+
+# Markdown processor
+markdown: kramdown
+
+# kramdown options (if you need them)
+kramdown:
+  input: GFM
+  hard_wrap: false
